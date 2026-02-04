@@ -1,25 +1,29 @@
-/* style.css */
+/* style.css (cleaned + deduped. Keeps landing + venn page styles only) */
 
-:root{
+:root {
   --bg: #0b0c10;
-  --card: rgba(255,255,255,0.06);
-  --card-border: rgba(255,255,255,0.12);
-  --text: rgba(255,255,255,0.92);
-  --muted: rgba(255,255,255,0.72);
-  --faint: rgba(255,255,255,0.50);
-  --shadow: 0 20px 80px rgba(0,0,0,0.45);
+  --card: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.72);
+  --faint: rgba(255, 255, 255, 0.50);
+  --shadow: 0 20px 80px rgba(0, 0, 0, 0.45);
   --radius: 18px;
 }
 
-*{ box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html, body{
+html,
+body {
   height: 100%;
 }
 
-body{
+body {
   margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--text);
   background:
     radial-gradient(1200px 700px at 20% 10%, rgba(255, 98, 182, 0.18), transparent 55%),
@@ -28,16 +32,16 @@ body{
     var(--bg);
 }
 
-.shell{
+.shell {
   min-height: 100%;
   display: grid;
   place-items: center;
   padding: 32px 18px;
 }
 
-.card{
+.card {
   width: 100%;
-  max-width: 720px;
+  max-width: 920px;
   padding: 28px 26px 18px;
   border-radius: var(--radius);
   background: var(--card);
@@ -46,7 +50,7 @@ body{
   backdrop-filter: blur(10px);
 }
 
-.badge{
+.badge {
   display: inline-block;
   padding: 7px 10px;
   border-radius: 999px;
@@ -56,14 +60,20 @@ body{
   letter-spacing: 0.3px;
 }
 
-.title{
+.title {
   margin: 14px 0 8px;
   font-size: 44px;
   line-height: 1.05;
   letter-spacing: -0.8px;
 }
 
-.subtitle{
+.h2 {
+  margin: 10px 0 8px;
+  font-size: 28px;
+  letter-spacing: -0.4px;
+}
+
+.subtitle {
   margin: 0 0 18px;
   font-size: 16px;
   line-height: 1.5;
@@ -71,14 +81,20 @@ body{
   max-width: 52ch;
 }
 
-.cta-row{
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-row {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   margin: 18px 0 6px;
 }
 
-.btn{
+.btn {
   appearance: none;
   border: 1px solid var(--card-border);
   background: transparent;
@@ -87,41 +103,54 @@ body{
   border-radius: 12px;
   font-size: 14px;
   cursor: pointer;
-  transition: transform 0.08s ease, background 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.08s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease;
 }
 
-.btn:active{
+.btn:active {
   transform: translateY(1px);
 }
 
-.btn-primary{
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.18);
+.btn-primary {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
-.btn-primary:hover{
-  background: rgba(255,255,255,0.14);
+.btn-primary:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
 
-.btn-ghost:hover{
-  background: rgba(255,255,255,0.08);
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.panel{
+.btn-sm {
+  padding: 9px 12px;
+  border-radius: 12px;
+}
+
+.panel {
   margin-top: 14px;
   padding: 14px 14px 12px;
   border-radius: 14px;
   border: 1px solid var(--card-border);
-  background: rgba(0,0,0,0.14);
+  background: rgba(0, 0, 0, 0.14);
 }
 
-.panel-title{
+.panel-title {
   margin: 0 0 8px;
   font-weight: 600;
   font-size: 14px;
 }
 
-.panel-list{
+.panel-list {
   margin: 0;
   padding-left: 18px;
   color: var(--muted);
@@ -129,38 +158,10 @@ body{
   font-size: 14px;
 }
 
-.after-start{
-  margin-top: 14px;
-  padding: 14px 14px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.08);
-}
-
-.after-title{
-  margin: 0 0 6px;
-  font-weight: 650;
-  font-size: 14px;
-}
-
-.after-text{
-  margin: 0 0 6px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.after-hint{
-  margin: 0;
-  color: var(--faint);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.footer{
+.footer {
   margin-top: 18px;
   padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,0.10);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -168,343 +169,8 @@ body{
   font-size: 12px;
 }
 
-.card.fade-out{
-  opacity: 0.35;
-  transform: translateY(2px);
-  transition: opacity 0.22s ease, transform 0.22s ease;
-}
-
-@media (max-width: 420px){
-  .title{ font-size: 38px; }
-}
-/* style.css (append these additions at the bottom) */
-
-.toprow{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.spacer{ width: 56px; }
-
-.h2{
-  margin: 10px 0 8px;
-  font-size: 28px;
-  letter-spacing: -0.4px;
-}
-
-.h3{
-  margin: 0 0 10px;
-  font-size: 14px;
-  letter-spacing: 0.2px;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-
-.p{
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.6;
-  font-size: 14px;
-}
-
-.p.strong{
-  color: var(--text);
-  font-weight: 650;
-  font-size: 15px;
-}
-
-.grid{
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 18px;
-  margin-top: 14px;
-}
-
-@media (max-width: 860px){
-  .grid{ grid-template-columns: 1fr; }
-}
-
-.viz-wrap{
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 16px;
-  background: rgba(0,0,0,0.12);
-  padding: 14px;
-}
-
-.tri{
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.tri-poly{
-  fill: rgba(255,255,255,0.06);
-  stroke: rgba(255,255,255,0.18);
-  stroke-width: 2;
-}
-
-.tri-label{
-  fill: rgba(255,255,255,0.80);
-  font-size: 16px;
-  font-weight: 650;
-}
-
-.tri-small{
-  fill: rgba(255,255,255,0.55);
-  font-size: 13px;
-}
-
-.tri-dot{
-  fill: rgba(255,255,255,0.92);
-}
-
-.tri-halo{
-  fill: rgba(255,255,255,0.08);
-  stroke: rgba(255,255,255,0.12);
-  stroke-width: 1;
-}
-
-.legend{
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.pill{
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  padding: 7px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
-  font-size: 12px;
-  color: rgba(255,255,255,0.86);
-}
-
-.mini{
-  font-size: 12px;
-  color: var(--faint);
-}
-
-.side{
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.block{
-  padding: 14px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.10);
-}
-
-.bullets{
-  margin: 0;
-  padding-left: 18px;
-  color: var(--muted);
-  line-height: 1.7;
-  font-size: 14px;
-}
-
-.callout{
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.74);
-  font-size: 13px;
-  line-height: 1.55;
-}
-
-.slider{
-  width: 100%;
-  margin: 6px 0 8px;
-}
-
-.seg{
-  display: inline-flex;
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 999px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.06);
-}
-
-.seg-btn{
-  appearance: none;
-  border: 0;
-  padding: 9px 12px;
-  cursor: pointer;
-  font-size: 12px;
-  color: rgba(255,255,255,0.78);
-  background: transparent;
-}
-
-.seg-btn.is-active{
-  background: rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.92);
-}
-
-.btn-sm{
-  padding: 9px 12px;
-  border-radius: 12px;
-}
-/* style.css (APPEND these at the bottom. This also refines the seg toggle to match your frosted layout) */
-
-.venn-grid{
-  grid-template-columns: 1.35fr 0.65fr;
-}
-
-@media (max-width: 860px){
-  .venn-grid{ grid-template-columns: 1fr; }
-}
-
-.venn-wrap{
-  padding: 16px;
-}
-
-.venn{
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Toggle: frosted capsule */
-.seg{
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-  backdrop-filter: blur(10px);
-}
-
-.seg-btn{
-  padding: 9px 14px;
-  color: rgba(255,255,255,0.76);
-}
-
-.seg-btn.is-active{
-  background: rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.92);
-}
-
-/* Venn circles: frosted glass base */
-.venn-circle{
-  stroke: rgba(255,255,255,0.18);
-  stroke-width: 2;
-  fill: rgba(255,255,255,0.06);
-}
-
-/* Labels near circles */
-.label-title{
-  fill: rgba(255,255,255,0.90);
-  font-size: 16px;
-  font-weight: 750;
-  letter-spacing: -0.2px;
-}
-
-.label-sub{
-  fill: rgba(255,255,255,0.62);
-  font-size: 12px;
-}
-
-/* Interactive hit regions */
-.region-hit{
-  fill: transparent;
-  stroke: transparent;
-  cursor: pointer;
-}
-
-/* Highlight overlays per region. Different colors. */
-.hl{
-  opacity: 0;
-  transition: opacity 0.18s ease;
-}
-
-.hl-i{  fill: rgba(120, 210, 255, 0.18); }
-.hl-p{  fill: rgba(255, 120, 200, 0.18); }
-.hl-c{  fill: rgba(255, 220, 120, 0.18); }
-
-.hl-ip{ fill: rgba(190, 140, 255, 0.18); }
-.hl-ic{ fill: rgba(140, 255, 220, 0.18); }
-.hl-pc{ fill: rgba(255, 165, 120, 0.18); }
-
-.hl-ipc{ fill: rgba(255, 255, 255, 0.12); }
-
-/* Explanations inside. Hidden until hover */
-.ex-title{
-  fill: rgba(255,255,255,0.92);
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.ex-body{
-  fill: rgba(255,255,255,0.70);
-  font-size: 12px;
-}
-
-.explain g{
-  transition: opacity 0.18s ease;
-}
-
-/* Bottom bars */
-.legend-row{
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.timeline-controls{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: min(420px, 100%);
-}
-
-.timeline-controls .slider{
-  flex: 1;
-  margin: 0;
-}
-
-.milestone-bar{
-  margin-top: 12px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.12);
-}
-
-.milestone-top{
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.milestone-title{
-  font-weight: 800;
-  letter-spacing: -0.2px;
-}
-
-.milestone-text{
-  margin-top: 6px;
-  color: rgba(255,255,255,0.72);
-  font-size: 14px;
-  line-height: 1.55;
-}
-/* style.css (APPEND. Clean center layout + ensure hover works) */
-
-.center{ text-align: center; }
-
-.topbar{
+/* Top bar (triangle.html) */
+.topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -512,123 +178,168 @@ body{
   margin-bottom: 10px;
 }
 
-.center-wrap{
+/* Segmented toggle */
+.seg {
+  display: inline-flex;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.seg-btn {
+  appearance: none;
+  border: 0;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.76);
+  background: transparent;
+}
+
+.seg-btn.is-active {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Centered Venn container */
+.center-wrap {
   display: grid;
   place-items: center;
   margin-top: 12px;
 }
 
-.venn-card{
+.venn-card {
   width: min(920px, 100%);
   padding: 16px;
   border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.12);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.12);
 }
 
-.venn{
+.venn {
   width: 100%;
   height: auto;
   display: block;
 }
 
-.venn-circle{
-  stroke: rgba(255,255,255,0.18);
+/* Venn base circles */
+.venn-circle {
+  stroke: rgba(255, 255, 255, 0.18);
   stroke-width: 2;
-  fill: rgba(255,255,255,0.06);
+  fill: rgba(255, 255, 255, 0.06);
 }
 
-.label-title{
-  fill: rgba(255,255,255,0.90);
+/* Labels near circles */
+.label-title {
+  fill: rgba(255, 255, 255, 0.90);
   font-size: 16px;
   font-weight: 780;
   letter-spacing: -0.2px;
 }
 
-.label-sub{
-  fill: rgba(255,255,255,0.62);
+.label-sub {
+  fill: rgba(255, 255, 255, 0.62);
   font-size: 12px;
 }
 
-.hl{
+/* Highlight overlays */
+.hl {
   opacity: 0;
   transition: opacity 0.16s ease;
   pointer-events: none;
 }
 
-.hl-i{  fill: rgba(120, 210, 255, 0.18); }
-.hl-p{  fill: rgba(255, 120, 200, 0.18); }
-.hl-c{  fill: rgba(255, 220, 120, 0.18); }
-
-.hl-ip{ fill: rgba(190, 140, 255, 0.18); }
-.hl-ic{ fill: rgba(140, 255, 220, 0.18); }
-.hl-pc{ fill: rgba(255, 165, 120, 0.18); }
-
+.hl-i  { fill: rgba(120, 210, 255, 0.18); }
+.hl-p  { fill: rgba(255, 120, 200, 0.18); }
+.hl-c  { fill: rgba(255, 220, 120, 0.18); }
+.hl-ip { fill: rgba(190, 140, 255, 0.18); }
+.hl-ic { fill: rgba(140, 255, 220, 0.18); }
+.hl-pc { fill: rgba(255, 165, 120, 0.18); }
 .hl-ipc{ fill: rgba(255, 255, 255, 0.12); }
 
-.ex-title{
-  fill: rgba(255,255,255,0.92);
+/* Explanations inside regions */
+.ex-title {
+  fill: rgba(255, 255, 255, 0.92);
   font-size: 14px;
   font-weight: 850;
 }
 
-.ex-body{
-  fill: rgba(255,255,255,0.70);
+.ex-body {
+  fill: rgba(255, 255, 255, 0.70);
   font-size: 12px;
 }
 
-.explain g{
+.explain g {
   transition: opacity 0.16s ease;
   pointer-events: none;
 }
 
-/* THIS is what makes hover reliably work in SVG */
-.hit{
-  fill: rgba(0,0,0,0);
+/* SVG hover hit areas */
+.hit {
+  fill: rgba(0, 0, 0, 0);
   cursor: pointer;
   pointer-events: all;
 }
 
-/* Lovers controls (only shown in lovers mode) */
-.controls{
+/* Lovers controls */
+.controls {
   margin-top: 14px;
   display: grid;
   gap: 10px;
 }
 
-.controls-row{
+.controls-row {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.controls-row .slider{
+.slider {
+  width: 100%;
+  margin: 6px 0 8px;
+}
+
+.controls-row .slider {
   flex: 1;
   margin: 0;
 }
 
-.milestone{
-  padding: 12px 14px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.04);
+.mini {
+  font-size: 12px;
+  color: var(--faint);
 }
 
-.milestone-head{
+.milestone {
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.milestone-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
 }
 
-.milestone-title{
+.milestone-title {
   font-weight: 850;
   letter-spacing: -0.2px;
 }
 
-.milestone-text{
+.milestone-text {
   margin-top: 6px;
-  color: rgba(255,255,255,0.72);
+  color: rgba(255, 255, 255, 0.72);
   font-size: 14px;
   line-height: 1.55;
+}
+
+@media (max-width: 420px) {
+  .title {
+    font-size: 38px;
+  }
 }
