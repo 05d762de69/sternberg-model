@@ -1,0 +1,59 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Our Triangle</title>
+    <meta name="description" content="A tiny interactive story about us, using Sternberg’s model of love." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main class="shell">
+      <section class="card" aria-label="Landing">
+        <div class="badge" aria-hidden="true">v0.1 • MVP</div>
+
+        <h1 class="title">Our Triangle</h1>
+        <p class="subtitle">
+          A tiny interactive story about us, using Sternberg’s model of love.
+        </p>
+
+        <div class="cta-row">
+          <button id="startBtn" class="btn btn-primary" type="button">
+            Start
+          </button>
+          <button id="peekBtn" class="btn btn-ghost" type="button">
+            What’s this?
+          </button>
+        </div>
+
+        <div id="panel" class="panel" hidden>
+          <p class="panel-title">How it works</p>
+          <ul class="panel-list">
+            <li>We’ll walk through our timeline.</li>
+            <li>The diagram evolves as the story evolves.</li>
+            <li>At the end, you’ll pick our next dates.</li>
+          </ul>
+        </div>
+
+        <div id="afterStart" class="after-start" hidden>
+          <p class="after-title">Okay. you’re in.</p>
+          <p class="after-text">
+            Next: the triangle. Then our timeline.
+          </p>
+          <p class="after-hint">
+            (I’m building this live. so this button will soon take you to Act 1.)
+          </p>
+        </div>
+
+        <footer class="footer">
+          <span class="footer-left">Made with love + a little psych</span>
+          <span class="footer-right" aria-hidden="true">♡</span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>

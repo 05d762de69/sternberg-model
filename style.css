@@ -1,0 +1,179 @@
+/* style.css */
+
+:root{
+  --bg: #0b0c10;
+  --card: rgba(255,255,255,0.06);
+  --card-border: rgba(255,255,255,0.12);
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.72);
+  --faint: rgba(255,255,255,0.50);
+  --shadow: 0 20px 80px rgba(0,0,0,0.45);
+  --radius: 18px;
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  height: 100%;
+}
+
+body{
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--text);
+  background:
+    radial-gradient(1200px 700px at 20% 10%, rgba(255, 98, 182, 0.18), transparent 55%),
+    radial-gradient(900px 600px at 85% 35%, rgba(80, 200, 255, 0.15), transparent 55%),
+    radial-gradient(900px 650px at 50% 95%, rgba(255, 220, 120, 0.10), transparent 60%),
+    var(--bg);
+}
+
+.shell{
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 32px 18px;
+}
+
+.card{
+  width: 100%;
+  max-width: 720px;
+  padding: 28px 26px 18px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.badge{
+  display: inline-block;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  color: var(--faint);
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+.title{
+  margin: 14px 0 8px;
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+}
+
+.subtitle{
+  margin: 0 0 18px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+.cta-row{
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 18px 0 6px;
+}
+
+.btn{
+  appearance: none;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+}
+
+.btn:active{
+  transform: translateY(1px);
+}
+
+.btn-primary{
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.18);
+}
+
+.btn-primary:hover{
+  background: rgba(255,255,255,0.14);
+}
+
+.btn-ghost:hover{
+  background: rgba(255,255,255,0.08);
+}
+
+.panel{
+  margin-top: 14px;
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--card-border);
+  background: rgba(0,0,0,0.14);
+}
+
+.panel-title{
+  margin: 0 0 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.panel-list{
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.after-start{
+  margin-top: 14px;
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.08);
+}
+
+.after-title{
+  margin: 0 0 6px;
+  font-weight: 650;
+  font-size: 14px;
+}
+
+.after-text{
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.after-hint{
+  margin: 0;
+  color: var(--faint);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.footer{
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.card.fade-out{
+  opacity: 0.35;
+  transform: translateY(2px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+@media (max-width: 420px){
+  .title{ font-size: 38px; }
+}
