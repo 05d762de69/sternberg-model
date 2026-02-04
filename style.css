@@ -343,3 +343,20 @@ body {
     font-size: 38px;
   }
 }
+/* style.css (ADD these small additions for the tag pills inside the SVG) */
+
+.tag-pill-rect{
+  fill: rgba(255,255,255,0.10);
+  stroke: rgba(255,255,255,0.18);
+  stroke-width: 1;
+}
+
+.tag-pill-text{
+  fill: rgba(255,255,255,0.88);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.tag-pill-muted{
+  fill: rgba(255,255,255,0.70);
+}
