@@ -177,3 +177,181 @@ body{
 @media (max-width: 420px){
   .title{ font-size: 38px; }
 }
+/* style.css (append these additions at the bottom) */
+
+.toprow{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.spacer{ width: 56px; }
+
+.h2{
+  margin: 10px 0 8px;
+  font-size: 28px;
+  letter-spacing: -0.4px;
+}
+
+.h3{
+  margin: 0 0 10px;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.p{
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.p.strong{
+  color: var(--text);
+  font-weight: 650;
+  font-size: 15px;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  margin-top: 14px;
+}
+
+@media (max-width: 860px){
+  .grid{ grid-template-columns: 1fr; }
+}
+
+.viz-wrap{
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  background: rgba(0,0,0,0.12);
+  padding: 14px;
+}
+
+.tri{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.tri-poly{
+  fill: rgba(255,255,255,0.06);
+  stroke: rgba(255,255,255,0.18);
+  stroke-width: 2;
+}
+
+.tri-label{
+  fill: rgba(255,255,255,0.80);
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.tri-small{
+  fill: rgba(255,255,255,0.55);
+  font-size: 13px;
+}
+
+.tri-dot{
+  fill: rgba(255,255,255,0.92);
+}
+
+.tri-halo{
+  fill: rgba(255,255,255,0.08);
+  stroke: rgba(255,255,255,0.12);
+  stroke-width: 1;
+}
+
+.legend{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pill{
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  font-size: 12px;
+  color: rgba(255,255,255,0.86);
+}
+
+.mini{
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.side{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.block{
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.10);
+}
+
+.bullets{
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.callout{
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.74);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.slider{
+  width: 100%;
+  margin: 6px 0 8px;
+}
+
+.seg{
+  display: inline-flex;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.06);
+}
+
+.seg-btn{
+  appearance: none;
+  border: 0;
+  padding: 9px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  color: rgba(255,255,255,0.78);
+  background: transparent;
+}
+
+.seg-btn.is-active{
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.92);
+}
+
+.btn-sm{
+  padding: 9px 12px;
+  border-radius: 12px;
+}

@@ -1,0 +1,137 @@
+<!-- triangle.html (NEW: nerd/lovers toggle + triangle + timeline slider) -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Triangle</title>
+    <meta name="description" content="Sternberg’s triangle, and our timeline inside it." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main class="shell">
+      <section class="card" aria-label="Triangle Page">
+        <div class="toprow">
+          <a class="btn btn-ghost btn-sm" href="index.html">← Back</a>
+
+          <div class="seg" role="tablist" aria-label="Mode toggle">
+            <button id="nerdsTab" class="seg-btn is-active" type="button" role="tab" aria-selected="true">
+              For nerds
+            </button>
+            <button id="loversTab" class="seg-btn" type="button" role="tab" aria-selected="false">
+              For lovers
+            </button>
+          </div>
+
+          <div class="spacer" aria-hidden="true"></div>
+        </div>
+
+        <h2 class="h2">Sternberg’s triangle</h2>
+        <p id="lede" class="subtitle">
+          Three components. Different mixtures. Different kinds of love.
+        </p>
+
+        <div class="grid">
+          <!-- LEFT: triangle viz -->
+          <div class="viz-wrap">
+            <svg id="triSvg" class="tri" viewBox="0 0 520 460" role="img" aria-label="Love triangle">
+              <!-- Triangle area -->
+              <polygon id="triPoly" points="260,40 60,410 460,410" class="tri-poly"></polygon>
+
+              <!-- Corner labels -->
+              <text x="260" y="26" text-anchor="middle" class="tri-label">Passion</text>
+              <text x="58" y="438" text-anchor="start" class="tri-label">Intimacy</text>
+              <text x="462" y="438" text-anchor="end" class="tri-label">Commitment</text>
+
+              <!-- Nerd mode: example regions -->
+              <g id="nerdRegions">
+                <text x="260" y="190" text-anchor="middle" class="tri-small">Consummate</text>
+                <text x="165" y="320" text-anchor="middle" class="tri-small">Companionate</text>
+                <text x="355" y="320" text-anchor="middle" class="tri-small">Fatuous</text>
+                <text x="260" y="360" text-anchor="middle" class="tri-small">Empty</text>
+                <text x="260" y="260" text-anchor="middle" class="tri-small">Romantic</text>
+              </g>
+
+              <!-- Moving point (timeline state) -->
+              <circle id="stateDot" cx="200" cy="300" r="8" class="tri-dot"></circle>
+              <circle id="stateHalo" cx="200" cy="300" r="18" class="tri-halo"></circle>
+            </svg>
+
+            <div class="legend">
+              <div class="pill" id="statePill">State: Companionate → Romantic</div>
+              <div class="mini" id="weightsText">Intimacy 0.70 · Passion 0.25 · Commitment 0.65</div>
+            </div>
+          </div>
+
+          <!-- RIGHT: explanation / timeline content -->
+          <div class="side">
+            <div id="nerdsPane">
+              <div class="block">
+                <h3 class="h3">The components</h3>
+                <ul class="bullets">
+                  <li><b>Intimacy</b>. closeness, trust, being known.</li>
+                  <li><b>Passion</b>. desire, excitement, “pull”.</li>
+                  <li><b>Commitment</b>. choosing each other. staying power.</li>
+                </ul>
+              </div>
+
+              <div class="block">
+                <h3 class="h3">The idea</h3>
+                <p class="p">
+                  Different mixtures produce different “types”. Not a test. Not a score.
+                  Just a neat map.
+                </p>
+                <div class="callout">
+                  Nerd note. The dot shows a mixture (I, P, C) inside the triangle.
+                  We’ll use the same map for our timeline.
+                </div>
+              </div>
+            </div>
+
+            <div id="loversPane" hidden>
+              <div class="block">
+                <h3 class="h3">Our version</h3>
+                <p id="milestoneTitle" class="p strong">A starting point.</p>
+                <p id="milestoneText" class="p">
+                  Add your first milestone text in the milestones array in triangle.js.
+                </p>
+              </div>
+
+              <div class="block">
+                <h3 class="h3">Move through time</h3>
+                <input
+                  id="timeline"
+                  class="slider"
+                  type="range"
+                  min="0"
+                  max="4"
+                  step="1"
+                  value="0"
+                  aria-label="Timeline slider"
+                />
+                <div class="mini" id="milestoneMeta">Milestone 1 of 5</div>
+
+                <div class="cta-row" style="margin-top: 14px;">
+                  <button id="prevBtn" class="btn btn-ghost btn-sm" type="button">← Prev</button>
+                  <button id="nextBtn" class="btn btn-primary btn-sm" type="button">Next →</button>
+                </div>
+
+                <div class="callout">
+                  Tiny promise. I’ll make this prettier. But the feeling is already real.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <span class="footer-left">Act 1 • The Triangle</span>
+          <span class="footer-right" aria-hidden="true">△</span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="triangle.js" defer></script>
+  </body>
+</html>
