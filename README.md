@@ -1,1 +1,1 @@
-# love-project
+# Sternberg Model
