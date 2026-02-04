@@ -1,13 +1,10 @@
-// triangle.js (REPLACE. New interactivity: hover highlights clipped regions + text reveals.
-// Lovers mode: slider changes circle radii to reflect weights.)
+// triangle.js (REPLACE. Fix hover. Slider only in lovers. Remove side content. Circles resize with milestones.)
 
 const nerdsTab = document.getElementById("nerdsTab");
 const loversTab = document.getElementById("loversTab");
+const lede = document.getElementById("lede");
 
-const modeHint = document.getElementById("modeHint");
-const timelineControls = document.getElementById("timelineControls");
-const milestoneBar = document.getElementById("milestoneBar");
-
+const loversControls = document.getElementById("loversControls");
 const slider = document.getElementById("timeline");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
@@ -15,7 +12,7 @@ const milestoneTitle = document.getElementById("milestoneTitle");
 const milestoneText = document.getElementById("milestoneText");
 const milestoneMeta = document.getElementById("milestoneMeta");
 
-// Base circles and clip circles (must stay in sync)
+// Base circles and clip circles (must match)
 const circleI = document.getElementById("circleI");
 const circleP = document.getElementById("circleP");
 const circleC = document.getElementById("circleC");
@@ -29,7 +26,7 @@ const clipIC = document.getElementById("clipIC_c");
 const clipPC = document.getElementById("clipPC_c");
 const clipIPC = document.getElementById("clipIPC_c");
 
-// Highlight rects
+// Highlight + text groups
 const hl = {
   I: document.getElementById("hlI"),
   P: document.getElementById("hlP"),
@@ -40,7 +37,6 @@ const hl = {
   IPC: document.getElementById("hlIPC"),
 };
 
-// Explanation groups
 const txt = {
   I: document.getElementById("txtI"),
   P: document.getElementById("txtP"),
@@ -51,43 +47,27 @@ const txt = {
   IPC: document.getElementById("txtIPC"),
 };
 
-// Region hit elements
-const regionEls = Array.from(document.querySelectorAll(".region-hit"));
+// Hover hits
+const hitEls = Array.from(document.querySelectorAll(".hit"));
 
-function setActiveRegion(regionKey){
-  Object.keys(hl).forEach((k) => (hl[k].style.opacity = "0"));
-  Object.keys(txt).forEach((k) => (txt[k].style.opacity = "0"));
-
-  if (!regionKey) return;
-
-  if (hl[regionKey]) hl[regionKey].style.opacity = "1";
-  if (txt[regionKey]) txt[regionKey].style.opacity = "1";
+function clearRegion(){
+  Object.values(hl).forEach((el) => (el.style.opacity = "0"));
+  Object.values(txt).forEach((el) => (el.style.opacity = "0"));
 }
 
-regionEls.forEach((el) => {
-  el.addEventListener("mouseenter", () => setActiveRegion(el.dataset.region));
-  el.addEventListener("mouseleave", () => setActiveRegion(null));
-  el.addEventListener("focus", () => setActiveRegion(el.dataset.region));
-  el.addEventListener("blur", () => setActiveRegion(null));
+function setRegion(key){
+  clearRegion();
+  if (!key) return;
+  if (hl[key]) hl[key].style.opacity = "1";
+  if (txt[key]) txt[key].style.opacity = "1";
+}
+
+hitEls.forEach((el) => {
+  el.addEventListener("mouseenter", () => setRegion(el.dataset.region));
+  el.addEventListener("mouseleave", () => setRegion(null));
 });
 
-// Make hit regions big, simple, and aligned with clip areas.
-// For MVP, we use invisible rectangles clipped to each region. This keeps hover precise and fast.
-function setRegionHitToClip(elId, clipId){
-  const el = document.getElementById(elId);
-  el.setAttribute("d", "M0 0 H720 V520 H0 Z");
-  el.setAttribute("clip-path", `url(#${clipId})`);
-}
-
-setRegionHitToClip("regI", "clipI");
-setRegionHitToClip("regP", "clipP");
-setRegionHitToClip("regC", "clipC");
-setRegionHitToClip("regIP", "clipIP");
-setRegionHitToClip("regIC", "clipIC");
-setRegionHitToClip("regPC", "clipPC");
-setRegionHitToClip("regIPC", "clipIPC");
-
-// --- Mode toggle ---
+// Modes
 function setMode(mode){
   const nerds = mode === "nerds";
 
@@ -97,77 +77,56 @@ function setMode(mode){
   nerdsTab.setAttribute("aria-selected", String(nerds));
   loversTab.setAttribute("aria-selected", String(!nerds));
 
-  timelineControls.hidden = nerds;
-  milestoneBar.hidden = nerds;
+  loversControls.hidden = nerds;
 
-  modeHint.textContent = nerds
-    ? "Hover regions to reveal meaning"
-    : "Move the slider. The circles resize with our timeline.";
-
-  const lede = document.getElementById("lede");
   lede.textContent = nerds
     ? "Hover the diagram. The explanations live inside it."
-    : "Same diagram. But now it’s ours.";
+    : "Move the slider. The diagram reshapes with our timeline.";
 
-  setActiveRegion(null);
+  clearRegion();
+
+  if (!nerds) {
+    setIdx(parseInt(slider.value, 10));
+  }
 }
 
 nerdsTab.addEventListener("click", () => setMode("nerds"));
 loversTab.addEventListener("click", () => setMode("lovers"));
 
-// --- Lovers mode timeline data (edit these) ---
+// Milestones (edit these)
 const milestones = [
-  {
-    title: "A starting point",
-    text: "Replace this with the moment you realized: this feels safe. this feels real.",
-    weights: { intimacy: 0.78, passion: 0.18, commitment: 0.55 },
-  },
-  {
-    title: "We became a team",
-    text: "A small moment where commitment showed up without needing the word.",
-    weights: { intimacy: 0.80, passion: 0.22, commitment: 0.65 },
-  },
-  {
-    title: "Romantic energy arrived",
-    text: "The first time it felt like more than closeness. It felt like pull.",
-    weights: { intimacy: 0.82, passion: 0.42, commitment: 0.70 },
-  },
-  {
-    title: "Long distance, still us",
-    text: "Distance didn’t delete it. It clarified it.",
-    weights: { intimacy: 0.85, passion: 0.55, commitment: 0.78 },
-  },
-  {
-    title: "The outlook",
-    text: "We keep choosing this. With plans. With play. With patience.",
-    weights: { intimacy: 0.88, passion: 0.62, commitment: 0.86 },
-  },
+  { title: "A starting point", text: "Replace this with your first moment.", weights: { intimacy: 0.78, passion: 0.18, commitment: 0.55 } },
+  { title: "We became a team", text: "Replace this with a team moment.", weights: { intimacy: 0.80, passion: 0.22, commitment: 0.65 } },
+  { title: "Romantic energy arrived", text: "Replace this with the pull moment.", weights: { intimacy: 0.82, passion: 0.42, commitment: 0.70 } },
+  { title: "Long distance, still us", text: "Replace this with the distance moment.", weights: { intimacy: 0.85, passion: 0.55, commitment: 0.78 } },
+  { title: "The outlook", text: "Replace this with your outlook.", weights: { intimacy: 0.88, passion: 0.62, commitment: 0.86 } },
 ];
 
-// Circle geometry. Centers are fixed. Radii vary with weights.
+// Geometry
 const centers = {
   I: { cx: 280, cy: 295 },
   P: { cx: 440, cy: 215 },
   C: { cx: 520, cy: 330 },
 };
 
-// Radius mapping. Keep overlaps stable by keeping a base and scaling gently.
 const R_BASE = 165;
 const R_MIN = 120;
-const R_MAX = 210;
+const R_MAX = 215;
 
-// Soft mapping. Weight in [0,1] maps to radius range.
+function clamp01(v){
+  return Math.max(0, Math.min(1, v));
+}
+
 function weightToRadius(w){
-  const x = Math.max(0, Math.min(1, w));
+  const x = clamp01(w);
   const r = R_MIN + (R_MAX - R_MIN) * x;
-  // Blend toward base for stability
   return 0.55 * R_BASE + 0.45 * r;
 }
 
-function applyCircles({ intimacy, passion, commitment }){
-  const rI = weightToRadius(intimacy);
-  const rP = weightToRadius(passion);
-  const rC = weightToRadius(commitment);
+function applyCircles(w){
+  const rI = weightToRadius(w.intimacy);
+  const rP = weightToRadius(w.passion);
+  const rC = weightToRadius(w.commitment);
 
   // Base circles
   circleI.setAttribute("cx", centers.I.cx);
@@ -182,7 +141,7 @@ function applyCircles({ intimacy, passion, commitment }){
   circleC.setAttribute("cy", centers.C.cy);
   circleC.setAttribute("r", rC);
 
-  // Clip circles used by highlight regions
+  // Clips
   clipI.setAttribute("cx", centers.I.cx);
   clipI.setAttribute("cy", centers.I.cy);
   clipI.setAttribute("r", rI);
@@ -195,7 +154,7 @@ function applyCircles({ intimacy, passion, commitment }){
   clipC.setAttribute("cy", centers.C.cy);
   clipC.setAttribute("r", rC);
 
-  // Pairwise and triple clips need matching radii too
+  // Pair and triple clips depend on the same circles
   clipIP.setAttribute("cx", centers.P.cx);
   clipIP.setAttribute("cy", centers.P.cy);
   clipIP.setAttribute("r", rP);
@@ -227,7 +186,7 @@ function setIdx(idx){
 
   applyCircles(m.weights);
 
-  // In lovers mode, also auto-highlight the dominant region as a nice cue
+  // Gentle auto-highlight in lovers mode (optional but nice)
   const w = m.weights;
   const hasI = w.intimacy > 0.55;
   const hasP = w.passion > 0.45;
@@ -242,14 +201,22 @@ function setIdx(idx){
   else if (w.passion >= w.intimacy && w.passion >= w.commitment) region = "P";
   else region = "C";
 
-  setActiveRegion(region);
+  setRegion(region);
 }
 
-slider.addEventListener("input", (e) => setIdx(parseInt(e.target.value, 10)));
-prevBtn.addEventListener("click", () => setIdx(parseInt(slider.value, 10) - 1));
-nextBtn.addEventListener("click", () => setIdx(parseInt(slider.value, 10) + 1));
+// Slider wiring
+if (slider){
+  slider.addEventListener("input", (e) => setIdx(parseInt(e.target.value, 10)));
+}
+if (prevBtn){
+  prevBtn.addEventListener("click", () => setIdx(parseInt(slider.value, 10) - 1));
+}
+if (nextBtn){
+  nextBtn.addEventListener("click", () => setIdx(parseInt(slider.value, 10) + 1));
+}
 
 // Init
-setMode("nerds");
+clearRegion();
 applyCircles(milestones[0].weights);
+setMode("nerds");
 setIdx(0);

@@ -1,39 +1,49 @@
-<!-- triangle.html (REPLACE بالكامل. New layout: frosted-glass Venn with hover-only explanations + toggle + timeline slider that changes circle sizes) -->
+<!-- triangle.html (REPLACE. Clean, centered. Slider only appears in "For lovers". Hover works.) -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The Model. And Us.</title>
-    <meta name="description" content="Sternberg’s components, shown as overlapping regions. Switch between nerd mode and our timeline." />
+    <meta name="description" content="Overlapping components of love. Hover to reveal. Switch to our timeline." />
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <main class="shell">
-      <section class="card" aria-label="Triangle Page">
-        <div class="toprow">
+      <section class="card" aria-label="Venn Page">
+        <header class="topbar">
           <a class="btn btn-ghost btn-sm" href="index.html">← Back</a>
 
           <div class="seg" role="tablist" aria-label="Mode toggle">
-            <button id="nerdsTab" class="seg-btn is-active" type="button" role="tab" aria-selected="true">
+            <button
+              id="nerdsTab"
+              class="seg-btn is-active"
+              type="button"
+              role="tab"
+              aria-selected="true"
+            >
               For nerds
             </button>
-            <button id="loversTab" class="seg-btn" type="button" role="tab" aria-selected="false">
+            <button
+              id="loversTab"
+              class="seg-btn"
+              type="button"
+              role="tab"
+              aria-selected="false"
+            >
               For lovers
             </button>
           </div>
+        </header>
 
-          <div class="spacer" aria-hidden="true"></div>
-        </div>
-
-        <h2 class="h2">Three components</h2>
-        <p id="lede" class="subtitle">
+        <h2 class="h2 center">Three components</h2>
+        <p id="lede" class="subtitle center">
           Hover the diagram. The explanations live inside it.
         </p>
 
-        <div class="grid venn-grid">
-          <div class="viz-wrap venn-wrap">
+        <div class="center-wrap">
+          <div class="venn-card">
             <svg
               id="vennSvg"
               class="venn"
@@ -60,16 +70,15 @@
                   </feMerge>
                 </filter>
 
-                <!-- subtle glow for highlighted region -->
                 <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+                  <feGaussianBlur stdDeviation="7" result="coloredBlur" />
                   <feMerge>
                     <feMergeNode in="coloredBlur" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
 
-                <!-- Clip paths for intersection regions -->
+                <!-- Clip paths for regions -->
                 <clipPath id="clipI">
                   <circle id="clipI_c" cx="280" cy="295" r="170"></circle>
                 </clipPath>
@@ -95,7 +104,6 @@
                     <circle id="clipPC_c" cx="520" cy="330" r="170"></circle>
                   </g>
                 </clipPath>
-
                 <clipPath id="clipIPC">
                   <g clip-path="url(#clipIP)">
                     <circle id="clipIPC_c" cx="520" cy="330" r="170"></circle>
@@ -103,70 +111,43 @@
                 </clipPath>
               </defs>
 
-              <!-- Base circles (frosted glass). These get bigger or smaller via JS -->
+              <!-- Base frosted circles (these resize in lovers mode) -->
               <g filter="url(#frost)">
-                <circle id="circleI" class="venn-circle c-i" cx="280" cy="295" r="170"></circle>
-                <circle id="circleP" class="venn-circle c-p" cx="440" cy="215" r="170"></circle>
-                <circle id="circleC" class="venn-circle c-c" cx="520" cy="330" r="170"></circle>
+                <circle id="circleI" class="venn-circle" cx="280" cy="295" r="170"></circle>
+                <circle id="circleP" class="venn-circle" cx="440" cy="215" r="170"></circle>
+                <circle id="circleC" class="venn-circle" cx="520" cy="330" r="170"></circle>
               </g>
 
-              <!-- Interactive regions. These are transparent hit areas. Hovering them highlights and reveals text. -->
-              <g id="regions">
-                <path id="regI"  class="region-hit" data-region="I"  d=""></path>
-                <path id="regP"  class="region-hit" data-region="P"  d=""></path>
-                <path id="regC"  class="region-hit" data-region="C"  d=""></path>
-
-                <path id="regIP" class="region-hit" data-region="IP" d=""></path>
-                <path id="regIC" class="region-hit" data-region="IC" d=""></path>
-                <path id="regPC" class="region-hit" data-region="PC" d=""></path>
-
-                <path id="regIPC" class="region-hit" data-region="IPC" d=""></path>
-              </g>
-
-              <!-- Highlight overlays. These are drawn using clipPaths so we can color regions independently. -->
+              <!-- Highlight overlays (colored). Above circles. -->
               <g id="highlights" filter="url(#glow)">
-                <rect id="hlI" class="hl hl-i" x="0" y="0" width="720" height="520" clip-path="url(#clipI)" opacity="0"></rect>
-                <rect id="hlP" class="hl hl-p" x="0" y="0" width="720" height="520" clip-path="url(#clipP)" opacity="0"></rect>
-                <rect id="hlC" class="hl hl-c" x="0" y="0" width="720" height="520" clip-path="url(#clipC)" opacity="0"></rect>
+                <rect id="hlI" class="hl hl-i" x="0" y="0" width="720" height="520" clip-path="url(#clipI)"></rect>
+                <rect id="hlP" class="hl hl-p" x="0" y="0" width="720" height="520" clip-path="url(#clipP)"></rect>
+                <rect id="hlC" class="hl hl-c" x="0" y="0" width="720" height="520" clip-path="url(#clipC)"></rect>
 
-                <rect id="hlIP" class="hl hl-ip" x="0" y="0" width="720" height="520" clip-path="url(#clipIP)" opacity="0"></rect>
-                <rect id="hlIC" class="hl hl-ic" x="0" y="0" width="720" height="520" clip-path="url(#clipIC)" opacity="0"></rect>
-                <rect id="hlPC" class="hl hl-pc" x="0" y="0" width="720" height="520" clip-path="url(#clipPC)" opacity="0"></rect>
+                <rect id="hlIP" class="hl hl-ip" x="0" y="0" width="720" height="520" clip-path="url(#clipIP)"></rect>
+                <rect id="hlIC" class="hl hl-ic" x="0" y="0" width="720" height="520" clip-path="url(#clipIC)"></rect>
+                <rect id="hlPC" class="hl hl-pc" x="0" y="0" width="720" height="520" clip-path="url(#clipPC)"></rect>
 
-                <rect id="hlIPC" class="hl hl-ipc" x="0" y="0" width="720" height="520" clip-path="url(#clipIPC)" opacity="0"></rect>
+                <rect id="hlIPC" class="hl hl-ipc" x="0" y="0" width="720" height="520" clip-path="url(#clipIPC)"></rect>
               </g>
 
-              <!-- Labels placed next to circles -->
-              <g class="venn-labels">
-                <text x="145" y="285" class="label-title">Intimacy</text>
-                <text x="145" y="305" class="label-sub">closeness. trust. being known.</text>
-
-                <text x="455" y="110" class="label-title">Passion</text>
-                <text x="455" y="130" class="label-sub">desire. excitement. pull.</text>
-
-                <text x="565" y="470" class="label-title" text-anchor="end">Commitment</text>
-                <text x="565" y="490" class="label-sub" text-anchor="end">choosing. staying. building.</text>
-              </g>
-
-              <!-- Hover-only explanations inside regions -->
+              <!-- Hover-only text inside regions -->
               <g id="explanations" class="explain" aria-hidden="true">
-                <!-- Singles -->
                 <g id="txtI" opacity="0">
                   <text x="215" y="325" class="ex-title" text-anchor="middle">Intimacy</text>
-                  <text x="215" y="348" class="ex-body" text-anchor="middle">Safe closeness. Being fully seen.</text>
+                  <text x="215" y="348" class="ex-body" text-anchor="middle">Closeness. Trust. Being known.</text>
                 </g>
 
                 <g id="txtP" opacity="0">
                   <text x="435" y="220" class="ex-title" text-anchor="middle">Passion</text>
-                  <text x="435" y="243" class="ex-body" text-anchor="middle">Electricity. Desire. Momentum.</text>
+                  <text x="435" y="243" class="ex-body" text-anchor="middle">Desire. Excitement. Pull.</text>
                 </g>
 
                 <g id="txtC" opacity="0">
                   <text x="555" y="355" class="ex-title" text-anchor="middle">Commitment</text>
-                  <text x="555" y="378" class="ex-body" text-anchor="middle">The choice. The plan. The “us”.</text>
+                  <text x="555" y="378" class="ex-body" text-anchor="middle">Choosing. Staying. Building.</text>
                 </g>
 
-                <!-- Pairs -->
                 <g id="txtIP" opacity="0">
                   <text x="345" y="275" class="ex-title" text-anchor="middle">Romantic</text>
                   <text x="345" y="298" class="ex-body" text-anchor="middle">Intimacy + Passion</text>
@@ -182,19 +163,43 @@
                   <text x="510" y="308" class="ex-body" text-anchor="middle">Passion + Commitment</text>
                 </g>
 
-                <!-- Triple -->
                 <g id="txtIPC" opacity="0">
                   <text x="445" y="315" class="ex-title" text-anchor="middle">Consummate</text>
                   <text x="445" y="338" class="ex-body" text-anchor="middle">Intimacy + Passion + Commitment</text>
                 </g>
               </g>
+
+              <!-- Labels next to circles (always visible). -->
+              <g class="venn-labels">
+                <text x="145" y="285" class="label-title">Intimacy</text>
+                <text x="145" y="305" class="label-sub">closeness. trust. being known.</text>
+
+                <text x="455" y="110" class="label-title">Passion</text>
+                <text x="455" y="130" class="label-sub">desire. excitement. pull.</text>
+
+                <text x="565" y="470" class="label-title" text-anchor="end">Commitment</text>
+                <text x="565" y="490" class="label-sub" text-anchor="end">choosing. staying. building.</text>
+              </g>
+
+              <!-- Transparent hit regions. Must be LAST so it catches hover. -->
+              <g id="hitRegions">
+                <rect class="hit" data-region="I"   x="0" y="0" width="720" height="520" clip-path="url(#clipI)" />
+                <rect class="hit" data-region="P"   x="0" y="0" width="720" height="520" clip-path="url(#clipP)" />
+                <rect class="hit" data-region="C"   x="0" y="0" width="720" height="520" clip-path="url(#clipC)" />
+
+                <rect class="hit" data-region="IP"  x="0" y="0" width="720" height="520" clip-path="url(#clipIP)" />
+                <rect class="hit" data-region="IC"  x="0" y="0" width="720" height="520" clip-path="url(#clipIC)" />
+                <rect class="hit" data-region="PC"  x="0" y="0" width="720" height="520" clip-path="url(#clipPC)" />
+
+                <rect class="hit" data-region="IPC" x="0" y="0" width="720" height="520" clip-path="url(#clipIPC)" />
+              </g>
             </svg>
 
-            <div class="legend-row">
-              <div id="modeHint" class="pill">Hover regions to reveal meaning</div>
-
-              <div id="timelineControls" class="timeline-controls" hidden>
+            <!-- Lovers-only controls -->
+            <div id="loversControls" class="controls" hidden>
+              <div class="controls-row">
                 <button id="prevBtn" class="btn btn-ghost btn-sm" type="button">←</button>
+
                 <input
                   id="timeline"
                   class="slider"
@@ -205,48 +210,25 @@
                   value="0"
                   aria-label="Timeline slider"
                 />
+
                 <button id="nextBtn" class="btn btn-primary btn-sm" type="button">→</button>
               </div>
-            </div>
 
-            <div id="milestoneBar" class="milestone-bar" hidden>
-              <div class="milestone-top">
-                <div id="milestoneTitle" class="milestone-title">A starting point</div>
-                <div id="milestoneMeta" class="mini">Milestone 1 of 5</div>
-              </div>
-              <div id="milestoneText" class="milestone-text">
-                Replace this with your first milestone text in triangle.js.
-              </div>
-            </div>
-          </div>
-
-          <div class="side">
-            <div class="block">
-              <h3 class="h3">How to use this page</h3>
-              <p class="p">
-                In nerd mode, hover reveals the model. In lover mode, the slider changes the balance. The
-                circles grow and shrink to match the moment.
-              </p>
-              <div class="callout">
-                Design choice. This is a Venn-style visualization for clarity, even though Sternberg is often
-                drawn as a triangle space.
-              </div>
-            </div>
-
-            <div class="block">
-              <h3 class="h3">Next</h3>
-              <p class="p">
-                Once this feels right, we add your real milestones, photos, and then the date ideas page.
-              </p>
-              <div class="cta-row" style="margin-top: 12px;">
-                <a class="btn btn-primary btn-sm" href="index.html">Save + go back</a>
+              <div class="milestone">
+                <div class="milestone-head">
+                  <div id="milestoneTitle" class="milestone-title">A starting point</div>
+                  <div id="milestoneMeta" class="mini">Milestone 1 of 5</div>
+                </div>
+                <div id="milestoneText" class="milestone-text">
+                  Replace this with your first milestone text in triangle.js.
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <footer class="footer">
-          <span class="footer-left">Act 1 • Components</span>
+          <span class="footer-left">Act 1</span>
           <span class="footer-right" aria-hidden="true">◎</span>
         </footer>
       </section>

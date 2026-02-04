@@ -500,3 +500,135 @@ body{
   font-size: 14px;
   line-height: 1.55;
 }
+/* style.css (APPEND. Clean center layout + ensure hover works) */
+
+.center{ text-align: center; }
+
+.topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.center-wrap{
+  display: grid;
+  place-items: center;
+  margin-top: 12px;
+}
+
+.venn-card{
+  width: min(920px, 100%);
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.12);
+}
+
+.venn{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.venn-circle{
+  stroke: rgba(255,255,255,0.18);
+  stroke-width: 2;
+  fill: rgba(255,255,255,0.06);
+}
+
+.label-title{
+  fill: rgba(255,255,255,0.90);
+  font-size: 16px;
+  font-weight: 780;
+  letter-spacing: -0.2px;
+}
+
+.label-sub{
+  fill: rgba(255,255,255,0.62);
+  font-size: 12px;
+}
+
+.hl{
+  opacity: 0;
+  transition: opacity 0.16s ease;
+  pointer-events: none;
+}
+
+.hl-i{  fill: rgba(120, 210, 255, 0.18); }
+.hl-p{  fill: rgba(255, 120, 200, 0.18); }
+.hl-c{  fill: rgba(255, 220, 120, 0.18); }
+
+.hl-ip{ fill: rgba(190, 140, 255, 0.18); }
+.hl-ic{ fill: rgba(140, 255, 220, 0.18); }
+.hl-pc{ fill: rgba(255, 165, 120, 0.18); }
+
+.hl-ipc{ fill: rgba(255, 255, 255, 0.12); }
+
+.ex-title{
+  fill: rgba(255,255,255,0.92);
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.ex-body{
+  fill: rgba(255,255,255,0.70);
+  font-size: 12px;
+}
+
+.explain g{
+  transition: opacity 0.16s ease;
+  pointer-events: none;
+}
+
+/* THIS is what makes hover reliably work in SVG */
+.hit{
+  fill: rgba(0,0,0,0);
+  cursor: pointer;
+  pointer-events: all;
+}
+
+/* Lovers controls (only shown in lovers mode) */
+.controls{
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.controls-row{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.controls-row .slider{
+  flex: 1;
+  margin: 0;
+}
+
+.milestone{
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+}
+
+.milestone-head{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.milestone-title{
+  font-weight: 850;
+  letter-spacing: -0.2px;
+}
+
+.milestone-text{
+  margin-top: 6px;
+  color: rgba(255,255,255,0.72);
+  font-size: 14px;
+  line-height: 1.55;
+}
