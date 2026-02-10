@@ -1,17 +1,267 @@
-/* style.css (ADD these small additions for the tag pills inside the SVG) */
+<!-- triangle.html (REPLACE. Changes:
+  1) Added dedicated label groups for IP / IC / PC / IPC
+  2) JS will now show ONLY the hovered region label (so IP won't also show I and P)
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Model. And Us.</title>
+    <meta
+      name="description"
+      content="Overlapping components of love. Hover to reveal. Switch between nerd mode and our timeline."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-.tag-pill-rect{
-  fill: rgba(255,255,255,0.10);
-  stroke: rgba(255,255,255,0.18);
-  stroke-width: 1;
-}
+  <body>
+    <main class="shell">
+      <section class="card" aria-label="Venn Page">
+        <header class="topbar">
+          <a class="btn btn-ghost btn-sm" href="index.html">← Back</a>
 
-.tag-pill-text{
-  fill: rgba(255,255,255,0.88);
-  font-size: 12px;
-  font-weight: 650;
-}
+          <div class="seg" role="tablist" aria-label="Mode toggle">
+            <button id="nerdsTab" class="seg-btn is-active" type="button" role="tab" aria-selected="true">
+              For nerds
+            </button>
+            <button id="loversTab" class="seg-btn" type="button" role="tab" aria-selected="false">
+              For lovers
+            </button>
+          </div>
+        </header>
 
-.tag-pill-muted{
-  fill: rgba(255,255,255,0.70);
-}
+        <h2 class="h2 center" id="pageTitle">Hover to reveal</h2>
+        <p id="lede" class="subtitle center">Hover a region to see the component or type.</p>
+
+        <div class="center-wrap">
+          <div class="venn-card">
+            <svg
+              id="vennSvg"
+              class="venn"
+              viewBox="0 0 720 520"
+              role="img"
+              aria-label="Overlapping components of love"
+            >
+              <defs>
+                <filter id="frost" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="0.9" result="blur" />
+                  <feColorMatrix
+                    in="blur"
+                    type="matrix"
+                    values="
+                      1 0 0 0 0
+                      0 1 0 0 0
+                      0 0 1 0 0
+                      0 0 0 0.95 0"
+                    result="glass"
+                  />
+                  <feMerge>
+                    <feMergeNode in="glass" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
+                <!-- Evenly spaced centers -->
+                <clipPath id="clipI">
+                  <circle id="clipI_c" cx="260" cy="330" r="170"></circle>
+                </clipPath>
+                <clipPath id="clipP">
+                  <circle id="clipP_c" cx="360" cy="205" r="170"></circle>
+                </clipPath>
+                <clipPath id="clipC">
+                  <circle id="clipC_c" cx="460" cy="330" r="170"></circle>
+                </clipPath>
+
+                <!-- Intersections -->
+                <clipPath id="clipIP">
+                  <g clip-path="url(#clipI)">
+                    <circle id="clipIP_c" cx="360" cy="205" r="170"></circle>
+                  </g>
+                </clipPath>
+                <clipPath id="clipIC">
+                  <g clip-path="url(#clipI)">
+                    <circle id="clipIC_c" cx="460" cy="330" r="170"></circle>
+                  </g>
+                </clipPath>
+                <clipPath id="clipPC">
+                  <g clip-path="url(#clipP)">
+                    <circle id="clipPC_c" cx="460" cy="330" r="170"></circle>
+                  </g>
+                </clipPath>
+                <clipPath id="clipIPC">
+                  <g clip-path="url(#clipIP)">
+                    <circle id="clipIPC_c" cx="460" cy="330" r="170"></circle>
+                  </g>
+                </clipPath>
+              </defs>
+
+              <!-- =========================
+                   NERDS MODE: VENN
+              ========================== -->
+              <g id="vennScene">
+                <!-- Base frosted circles -->
+                <g filter="url(#frost)">
+                  <circle id="circleI" class="venn-circle" cx="260" cy="330" r="170"></circle>
+                  <circle id="circleP" class="venn-circle" cx="360" cy="205" r="170"></circle>
+                  <circle id="circleC" class="venn-circle" cx="460" cy="330" r="170"></circle>
+                </g>
+
+                <!-- Labels (hidden by default. Revealed on hover.) -->
+                <g id="vennLabels" class="venn-labels" aria-hidden="true">
+                  <!-- Singles -->
+                  <g id="lblGroupI" class="venn-label-group" opacity="0">
+                    <text class="venn-label-title" x="150" y="380" text-anchor="start">Intimacy</text>
+                    <text class="venn-label-sub" x="150" y="402" text-anchor="start">Closeness. Trust.</text>
+                  </g>
+
+                  <g id="lblGroupP" class="venn-label-group" opacity="0">
+                    <text class="venn-label-title" x="360" y="100" text-anchor="middle">Passion</text>
+                    <text class="venn-label-sub" x="360" y="122" text-anchor="middle">Desire. Pull.</text>
+                  </g>
+
+                  <g id="lblGroupC" class="venn-label-group" opacity="0">
+                    <text class="venn-label-title" x="602" y="380" text-anchor="end">Commitment</text>
+                    <text class="venn-label-sub" x="602" y="402" text-anchor="end">Choosing. Building.</text>
+                  </g>
+
+                  <!-- Intersections: dedicated labels so we can show ONLY the hovered region -->
+                  <g id="lblGroupIP" class="venn-label-group" opacity="0">
+                    <text class="venn-label-title" x="310" y="214" text-anchor="middle"></text>
+                    <text class="venn-label-sub" x="310" y="236" text-anchor="middle"></text>
+                  </g>
+
+                  <g id="lblGroupIC" class="venn-label-group" opacity="0">
+                    <text class="venn-label-title" x="360" y="326" text-anchor="middle"></text>
+                    <text class="venn-label-sub" x="360" y="348" text-anchor="middle"></text>
+                  </g>
+
+                  <g id="lblGroupPC" class="venn-label-group" opacity="0">
+                    <text class="venn-label-title" x="450" y="214" text-anchor="middle"></text>
+                    <text class="venn-label-sub" x="450" y="236" text-anchor="middle"></text>
+                  </g>
+
+                  <g id="lblGroupIPC" class="venn-label-group" opacity="0">
+                    <text class="venn-label-title" x="360" y="282" text-anchor="middle"></text>
+                    <text class="venn-label-sub" x="360" y="304" text-anchor="middle"></text>
+                  </g>
+                </g>
+
+                <!-- Highlight overlays -->
+                <g>
+                  <rect id="hlI" class="hl" x="0" y="0" width="720" height="520" clip-path="url(#clipI)" fill="rgba(120, 210, 255, 0.35)" opacity="0"></rect>
+                  <rect id="hlP" class="hl" x="0" y="0" width="720" height="520" clip-path="url(#clipP)" fill="rgba(255, 120, 200, 0.35)" opacity="0"></rect>
+                  <rect id="hlC" class="hl" x="0" y="0" width="720" height="520" clip-path="url(#clipC)" fill="rgba(255, 220, 120, 0.35)" opacity="0"></rect>
+
+                  <rect id="hlIP" class="hl" x="0" y="0" width="720" height="520" clip-path="url(#clipIP)" fill="rgba(190, 140, 255, 0.35)" opacity="0"></rect>
+                  <rect id="hlIC" class="hl" x="0" y="0" width="720" height="520" clip-path="url(#clipIC)" fill="rgba(140, 255, 220, 0.35)" opacity="0"></rect>
+                  <rect id="hlPC" class="hl" x="0" y="0" width="720" height="520" clip-path="url(#clipPC)" fill="rgba(255, 165, 120, 0.35)" opacity="0"></rect>
+
+                  <rect id="hlIPC" class="hl" x="0" y="0" width="720" height="520" clip-path="url(#clipIPC)" fill="rgba(255, 255, 255, 0.22)" opacity="0"></rect>
+                </g>
+
+                <!-- Hover-only explanations (SHORT core blurbs) -->
+                <g id="explanations" class="explain" aria-hidden="true">
+                  <!-- Singles: intentionally empty (edge labels already show the name) -->
+                  <g id="txtI" opacity="0"></g>
+                  <g id="txtP" opacity="0"></g>
+                  <g id="txtC" opacity="0"></g>
+
+                  <!-- Pairs -->
+                  <g id="txtIP" opacity="0">
+                    <text x="240" y="200" class="ex-title" text-anchor="middle">Romantic love</text>
+                    <text x="240" y="224" class="ex-body" text-anchor="middle">Intimacy + Passion</text>
+                    <text x="240" y="244" class="ex-body" text-anchor="middle">Closeness + pull.</text>
+                  </g>
+
+                  <g id="txtIC" opacity="0">
+                    <text x="360" y="406" class="ex-title" text-anchor="middle">Companionate love</text>
+                    <text x="360" y="430" class="ex-body" text-anchor="middle">Intimacy + Commitment</text>
+                    <text x="360" y="450" class="ex-body" text-anchor="middle">Deep. steady.</text>
+                  </g>
+
+                  <g id="txtPC" opacity="0">
+                    <text x="480" y="200" class="ex-title" text-anchor="middle">Fatuous love</text>
+                    <text x="480" y="224" class="ex-body" text-anchor="middle">Passion + Commitment</text>
+                    <text x="480" y="244" class="ex-body" text-anchor="middle">Fast. decided.</text>
+                  </g>
+
+                  <!-- Triple -->
+                  <g id="txtIPC" opacity="0">
+                    <text x="360" y="280" class="ex-title" text-anchor="middle">Consummate love</text>
+                    <text x="360" y="304" class="ex-body" text-anchor="middle">Intimacy + Passion + Commitment</text>
+                    <text x="360" y="324" class="ex-body" text-anchor="middle">All three.</text>
+                  </g>
+                </g>
+              </g>
+
+              <!-- =========================
+                   LOVERS MODE: LINE CHART
+              ========================== -->
+              <g id="chartScene" opacity="0" aria-hidden="true">
+                <g id="chartLines"></g>
+                <g id="chartMonths"></g>
+                <g id="chartMarkers"></g>
+
+                <g id="chartTooltip" opacity="0" pointer-events="none" filter="url(#frost)">
+                  <rect
+                    id="tipRect"
+                    x="0"
+                    y="0"
+                    width="240"
+                    height="92"
+                    rx="14"
+                    ry="14"
+                    fill="rgba(255,255,255,0.12)"
+                    stroke="rgba(255,255,255,0.18)"
+                  ></rect>
+                  <text id="tipMonth" x="14" y="26" class="tip-title">Aug</text>
+                  <text id="tipLine" x="14" y="48" class="tip-body">Intimacy</text>
+                  <text id="tipText" x="14" y="70" class="tip-body">…</text>
+                </g>
+
+                <rect
+                  id="chartHit"
+                  x="56"
+                  y="96"
+                  width="608"
+                  height="320"
+                  fill="rgba(0,0,0,0)"
+                  pointer-events="all"
+                ></rect>
+              </g>
+            </svg>
+
+            <div id="loversControls" class="controls" hidden>
+              <div class="controls-row">
+                <button id="prevBtn" class="btn btn-ghost btn-sm" type="button">←</button>
+
+                <input
+                  id="timeline"
+                  class="slider"
+                  type="range"
+                  min="0"
+                  max="6"
+                  step="1"
+                  value="0"
+                  aria-label="Timeline slider"
+                />
+
+                <button id="nextBtn" class="btn btn-primary btn-sm" type="button">→</button>
+              </div>
+
+              <div class="center mini" id="monthLabel">Aug → Feb</div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <span class="footer-left">Act 1</span>
+          <span class="footer-right" aria-hidden="true">◎</span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="triangle.js" defer></script>
+  </body>
+</html>
