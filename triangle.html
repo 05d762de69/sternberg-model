@@ -1,10 +1,10 @@
-<!-- triangle.html (REPLACE. Responsive layout optimized for iPhone) -->
+<!-- triangle.html (REPLACE. Adds a Next button to the new date ideas page) -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>The Model. And Us.</title>
+    <title>Talk nerdy to me.</title>
     <meta
       name="description"
       content="Overlapping components of love. Hover to reveal. Switch between nerd mode and our timeline."
@@ -28,8 +28,8 @@
           </div>
         </header>
 
-        <h2 class="h2 center" id="pageTitle">Hover to reveal</h2>
-        <p id="lede" class="subtitle center">Hover a region to see the component or type.</p>
+        <h2 class="h2 center" id="pageTitle">Hover to reveal components</h2>
+        <p id="lede" class="subtitle center">Just imagine my annoying ass narrating it, and you slowly zoning out.</p>
 
         <div class="center-wrap">
           <div class="venn-card">
@@ -122,7 +122,7 @@
                     <text class="venn-label-sub" x="602" y="402" text-anchor="end">Choosing. Building.</text>
                   </g>
 
-                  <!-- Intersections: dedicated labels so we can show ONLY the hovered region -->
+                  <!-- Intersections -->
                   <g id="lblGroupIP" class="venn-label-group" opacity="0">
                     <text class="venn-label-title" x="310" y="214" text-anchor="middle"></text>
                     <text class="venn-label-sub" x="310" y="236" text-anchor="middle"></text>
@@ -157,7 +157,7 @@
                   <rect id="hlIPC" class="hl" x="0" y="0" width="720" height="520" clip-path="url(#clipIPC)" fill="rgba(255, 255, 255, 0.22)" opacity="0"></rect>
                 </g>
 
-                <!-- Hover-only explanations (SHORT core blurbs) -->
+                <!-- Hover-only explanations -->
                 <g id="explanations" class="explain" aria-hidden="true">
                   <g id="txtI" opacity="0"></g>
                   <g id="txtP" opacity="0"></g>
@@ -244,14 +244,16 @@
                 <button id="nextBtn" class="btn btn-primary btn-sm" type="button">→</button>
               </div>
 
-              <div class="center mini" id="monthLabel">Aug → Feb</div>
+              <div class="center mini" id="monthLabel">August to February</div>
             </div>
           </div>
         </div>
 
         <footer class="footer">
           <span class="footer-left">Act 1</span>
-          <span class="footer-right" aria-hidden="true">◎</span>
+          <a class="btn btn-primary btn-sm" href="dateideas.html" aria-label="Next page">
+            Next →
+          </a>
         </footer>
       </section>
     </main>

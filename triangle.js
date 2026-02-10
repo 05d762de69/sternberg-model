@@ -141,7 +141,7 @@ const months = [
     story: {
       intimacy: "Talking to you on the phone anchors my day. You make me so happy.",
       passion: "Excitement through the screen. Meh.",
-      commitment: "Future. Us. No flinching.",
+      commitment: "Future. Us. No flinching. (You've got me writing love poems - wtf)",
     },
   },
 ];
@@ -587,10 +587,10 @@ function setMode(mode) {
     loversControls.style.display = nerds ? "none" : "grid";
   }
 
-  pageTitle && (pageTitle.textContent = nerds ? "Hover to reveal" : "Aug → Feb");
+  pageTitle && (pageTitle.textContent = nerds ? "Hover to reveal" : "August to February");
   lede && (lede.textContent = nerds
-    ? "Hover a region to see the component or type."
-    : "Slide through time. The lines grow as we did. Hover a line to read the month.");
+    ? "Just imagine my annoying ass narrating it, and you slowly zoning out."
+    : "Personalized line charts - Romantic, huh?");
 
   if (vennScene) { vennScene.style.display = nerds ? "block" : "none"; vennScene.style.pointerEvents = nerds ? "auto" : "none"; }
   if (chartScene) { chartScene.style.display = nerds ? "none" : "block"; chartScene.style.pointerEvents = nerds ? "none" : "auto"; chartScene.setAttribute("opacity", nerds ? "0" : "1"); }

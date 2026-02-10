@@ -1,0 +1,81 @@
+<!-- dateideas.html (REPLACE. Long-distance-first filters) -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Date Ideas. In Three Flavors.</title>
+    <meta
+      name="description"
+      content="Long-distance date ideas categorized by Intimacy, Passion, and Commitment. Tap a category to explore."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main class="shell">
+      <section class="card" aria-label="Date ideas page">
+        <header class="topbar">
+          <a class="btn btn-ghost btn-sm" href="triangle.html">← Back</a>
+          <div class="right-actions">
+            <button id="shuffleBtn" class="btn btn-ghost btn-sm" type="button">Shuffle</button>
+          </div>
+        </header>
+
+        <h2 class="h2 center">Date ideas</h2>
+        <p class="subtitle center">
+          Long-distance until April. Real ideas you can do. Tap a category. Pick the vibe.
+        </p>
+
+        <div class="deck" role="tablist" aria-label="Date categories">
+          <button class="deck-card is-active" type="button" id="catI" role="tab" aria-selected="true" data-cat="I">
+            <div class="deck-top">
+              <div class="deck-dot deck-dot-i" aria-hidden="true"></div>
+              <div class="deck-title">Intimacy</div>
+            </div>
+            <div class="deck-sub">Closeness. trust. slow warmth.</div>
+          </button>
+
+          <button class="deck-card" type="button" id="catP" role="tab" aria-selected="false" data-cat="P">
+            <div class="deck-top">
+              <div class="deck-dot deck-dot-p" aria-hidden="true"></div>
+              <div class="deck-title">Passion</div>
+            </div>
+            <div class="deck-sub">Energy. novelty. that pull.</div>
+          </button>
+
+          <button class="deck-card" type="button" id="catC" role="tab" aria-selected="false" data-cat="C">
+            <div class="deck-top">
+              <div class="deck-dot deck-dot-c" aria-hidden="true"></div>
+              <div class="deck-title">Commitment</div>
+            </div>
+            <div class="deck-sub">Building. rituals. future-proofing.</div>
+          </button>
+        </div>
+
+        <div class="chips" aria-label="Filters">
+          <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="chip" type="button" data-filter="sync" aria-pressed="false">Together now</button>
+          <button class="chip" type="button" data-filter="async" aria-pressed="false">Send and wait</button>
+          <button class="chip" type="button" data-filter="low" aria-pressed="false">Low effort</button>
+          <button class="chip" type="button" data-filter="deep" aria-pressed="false">Deep talk</button>
+          <button class="chip" type="button" data-filter="play" aria-pressed="false">Playful</button>
+          <button class="chip" type="button" data-filter="surprise" aria-pressed="false">Surprise</button>
+        </div>
+
+        <div class="ideas-head">
+          <div class="mini" id="ideasMeta">Showing Intimacy. All filters.</div>
+        </div>
+
+        <div id="ideasGrid" class="ideas-grid" aria-live="polite"></div>
+
+        <footer class="footer">
+          <span class="footer-left">Act 2</span>
+          <span class="footer-right" aria-hidden="true">✶</span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="dateideas.js" defer></script>
+  </body>
+</html>

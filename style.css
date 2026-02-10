@@ -1,4 +1,4 @@
-/* style.css (REPLACE. Responsive, iPhone-first tweaks) */
+/* style.css (REPLACE. Includes date ideas page styles) */
 
 :root {
   --bg: #0b0c10;
@@ -327,4 +327,197 @@ body {
   .venn {
     max-height: 68vh;
   }
+}
+
+/* =========================
+   DATE IDEAS PAGE (NEW)
+========================= */
+
+.right-actions { display: inline-flex; gap: 10px; align-items: center; }
+
+.deck {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.deck-card {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.12);
+  color: var(--text);
+  padding: 14px 14px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.08s ease, background 0.18s ease, border-color 0.18s ease;
+  touch-action: manipulation;
+}
+.deck-card:active { transform: translateY(1px); }
+.deck-card:hover { background: rgba(255, 255, 255, 0.06); }
+
+.deck-card.is-active {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.deck-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.deck-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08) inset;
+}
+.deck-dot-i { background: rgba(120, 210, 255, 0.80); }
+.deck-dot-p { background: rgba(255, 120, 200, 0.80); }
+.deck-dot-c { background: rgba(255, 220, 120, 0.80); }
+
+.deck-title {
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  font-size: 14px;
+}
+
+.deck-sub {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 12px;
+  justify-content: center;
+}
+
+.chip {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.78);
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.08s ease;
+}
+.chip:active { transform: translateY(1px); }
+.chip.is-active {
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.ideas-head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 6px 0 8px;
+}
+
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.idea-card {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.12);
+  padding: 14px 14px 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
+  backdrop-filter: blur(10px);
+}
+
+.idea-top {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.idea-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+.idea-dot-i { background: rgba(120, 210, 255, 0.75); }
+.idea-dot-p { background: rgba(255, 120, 200, 0.75); }
+.idea-dot-c { background: rgba(255, 220, 120, 0.75); }
+
+.idea-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.idea-note {
+  margin: 0 0 10px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.idea-meta, .idea-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.pill {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+  padding: 6px 8px;
+}
+
+.pill-faint {
+  color: rgba(255, 255, 255, 0.66);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  text-align: center;
+}
+.empty-title {
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.90);
+  margin-bottom: 4px;
+}
+.empty-sub {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+}
+
+@media (max-width: 860px) {
+  .ideas-grid { grid-template-columns: repeat(2, 1fr); }
+  .deck { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .ideas-grid { grid-template-columns: 1fr; }
+  .deck-card { padding: 13px 13px 12px; }
 }
