@@ -1,7 +1,7 @@
-// triangle.js (REPLACE. Changes:
-// 1) Tooltip box is now bigger + dynamically grows with wrapped text
-// 2) Tooltip supports multi-line story text + placeholder lines so it feels “roomier”
-// 3) Everything else unchanged (Venn hover shows ONLY hovered region label, chart curves stay smooth)
+// triangle.js (REPLACE. Responsive improvements optimized for iPhone:
+// 1) Use SVG viewBox dimensions dynamically (no hard-coded VIEW_W/H)
+// 2) Tooltip width adapts to smaller screens in SVG units and stays inside bounds
+// 3) Keep everything else as-is (hover behavior, smooth curves, multiline tooltip)
 
 const nerdsTab = document.getElementById("nerdsTab");
 const loversTab = document.getElementById("loversTab");
@@ -94,8 +94,8 @@ const months = [
     label: "Sep",
     weights: { intimacy: 0.7, passion: 0.3, commitment: 0.55 },
     story: {
-      intimacy: "First super friendly sleep overs. Big step for me - learned to love sharing my space with you.",
-      passion: "Flirty momentum. Starships. Our definitive acts of friendship (always looking out for each other 😏)",
+      intimacy: "First super friendly sleep overs. Big step for me. Learned to love sharing my space with you.",
+      passion: "Flirty momentum. Starships. Our definitive acts of friendship. Always looking out for each other 😏",
       commitment: "You made me want to be a better friend. You showed me your standards, and I wanted nothing more than to meet them.",
     },
   },
@@ -103,7 +103,7 @@ const months = [
     label: "Oct",
     weights: { intimacy: 1, passion: 0.5, commitment: 0.75 },
     story: {
-      intimacy: "You saw me at my lowest, and picked me up. I love cooking for you - as long as you don't help me.",
+      intimacy: "You saw me at my lowest, and picked me up. I love cooking for you. As long as you don't help me.",
       passion: "Good times, poor Eva. Occasional guilt into all directions.",
       commitment: "Tassie Trip. Showed me that you stay. Snapped me out of my research mania lol.",
     },
@@ -112,16 +112,16 @@ const months = [
     label: "Nov",
     weights: { intimacy: 1, passion: 0.1, commitment: 0.95 },
     story: {
-      intimacy: "Here I realized that I am definitely falling for you. Just triple checking 'do you REALLY have no feelings for me?'",
-      passion: "Our little break, whoops. Hypocrisy discussions.",
-      commitment: "Hannes + Rox Adentures. Building our little routines - seeing the other stressed and relaxed.",
+      intimacy: "Here I realized that I am definitely falling for you. Just triple checking, do you REALLY have no feelings for me?",
+      passion: "Our little break. Whoops. Hypocrisy discussions.",
+      commitment: "Hannes + Rox Adventures. Building our little routines. Seeing the other stressed and relaxed.",
     },
   },
   {
     label: "Dec",
     weights: { intimacy: 1, passion: 0.8, commitment: 0.95 },
     story: {
-      intimacy: "Sharing tent for 3 weeks. Spicy Nachos. Our first christmas together.",
+      intimacy: "Sharing tent for 3 weeks. Spicy Nachos. Our first Christmas together.",
       passion: "Realizing I want to kiss you all day.",
       commitment: "I think you're my best friend.",
     },
@@ -132,7 +132,7 @@ const months = [
     story: {
       intimacy: "Admitting our feelings to each other. Crying on the bus because I had to leave.",
       passion: "My NYE kiss.",
-      commitment: "You're my friend! I want you in my life.",
+      commitment: "You're my friend. I want you in my life.",
     },
   },
   {
@@ -247,10 +247,16 @@ function showVennRegion(key) {
   TXT[key] && (TXT[key].style.opacity = "1");
 }
 
-const VIEW_W = 720;
-const VIEW_H = 520;
+/* Responsive viewBox handling */
+
+function getViewBox() {
+  const vb = vennSvg?.viewBox?.baseVal;
+  if (!vb) return { w: 720, h: 520 };
+  return { w: vb.width || 720, h: vb.height || 520 };
+}
 
 function clientToSvgPoint(svg, clientX, clientY) {
+  const { w: VIEW_W, h: VIEW_H } = getViewBox();
   const r = svg.getBoundingClientRect();
   return { x: ((clientX - r.left) / r.width) * VIEW_W, y: ((clientY - r.top) / r.height) * VIEW_H };
 }
@@ -326,7 +332,6 @@ function progressionValuesForSeriesKey(key) {
   return months.map((m, i) => (i === 0 ? 0 : clamp01((clamp01(m.weights[key]) - w0) / denom)));
 }
 
-// --- Smooth path: Catmull-Rom -> cubic Bezier ---
 function pathDFromPointsSmooth(pts, tension = 1) {
   if (!pts || pts.length === 0) return "";
   if (pts.length === 1) return `M ${pts[0].x} ${pts[0].y}`;
@@ -433,7 +438,6 @@ function closestVisibleSeriesAtPoint(svgPt) {
   const left = CHART.x, right = CHART.x + CHART.w, top = CHART.y, bottom = CHART.y + CHART.h;
   if (svgPt.x < left || svgPt.x > right || svgPt.y < top || svgPt.y > bottom) return null;
 
-  // Hover forgiveness (SVG viewBox units)
   const HIT_RADIUS = 18;
 
   let best = null, bestD = Infinity;
@@ -454,21 +458,18 @@ function closestVisibleSeriesAtPoint(svgPt) {
   return bestD <= HIT_RADIUS ? best : null;
 }
 
-/* === Tooltip sizing + wrapping === */
+/* Tooltip sizing + wrapping */
 
-// These are in SVG viewBox units (so they scale nicely with the SVG)
 const TIP = {
   W: 320,
   PAD_X: 14,
   PAD_Y: 14,
   RX: 14,
-  TITLE_Y: 26,
-  SUB_Y: 48,
   TEXT_Y: 72,
   LINE_H: 16,
-  MIN_LINES: 4,      // placeholder “breathing room”
-  MAX_LINES: 7,      // guardrail so it doesn’t become huge
-  MAX_CHARS_PER_LINE: 34, // simple wrap heuristic (good enough for your short sentences)
+  MIN_LINES: 4,
+  MAX_LINES: 7,
+  MAX_CHARS_PER_LINE: 34,
 };
 
 function wrapTextSimple(text, maxChars) {
@@ -480,16 +481,9 @@ function wrapTextSimple(text, maxChars) {
   let cur = "";
 
   for (const w of words) {
-    if (!cur) {
-      cur = w;
-      continue;
-    }
-    if ((cur.length + 1 + w.length) <= maxChars) {
-      cur += " " + w;
-    } else {
-      lines.push(cur);
-      cur = w;
-    }
+    if (!cur) { cur = w; continue; }
+    if ((cur.length + 1 + w.length) <= maxChars) cur += " " + w;
+    else { lines.push(cur); cur = w; }
   }
   if (cur) lines.push(cur);
 
@@ -497,7 +491,6 @@ function wrapTextSimple(text, maxChars) {
 }
 
 function setTipTextLines(lines) {
-  // Clear existing tspans
   while (tipText && tipText.firstChild) tipText.removeChild(tipText.firstChild);
 
   const normalized = Array.isArray(lines) ? lines.slice(0, TIP.MAX_LINES) : [];
@@ -505,49 +498,46 @@ function setTipTextLines(lines) {
 
   for (let i = 0; i < want; i++) {
     const tspan = makeSvgEl("tspan", { x: TIP.PAD_X });
-    if (i === 0) {
-      // first line uses the <text> y attr already
-      tspan.setAttribute("dy", "0");
-    } else {
-      tspan.setAttribute("dy", String(TIP.LINE_H));
-    }
-
-    // Placeholder line: non-breaking space keeps height stable without looking like “empty”
-    const line = normalized[i] ?? "\u00A0";
-    tspan.textContent = line;
-
+    tspan.setAttribute("dy", i === 0 ? "0" : String(TIP.LINE_H));
+    tspan.textContent = normalized[i] ?? "\u00A0";
     tipText.appendChild(tspan);
   }
 
-  return want; // number of rendered lines (including placeholders)
+  return want;
 }
 
 function showTooltip(series, svgPt) {
+  const { w: VIEW_W, h: VIEW_H } = getViewBox();
+
   const m = months[activeMonthIdx];
   const raw = m.story?.[series.key] || "";
 
   tipMonth.textContent = m.label;
   tipLine.textContent = series.label;
 
-  const lines = wrapTextSimple(raw, TIP.MAX_CHARS_PER_LINE);
+  const padClamp = 12;
+
+  // Responsive tooltip width in SVG units
+  const maxW = Math.max(220, VIEW_W - (padClamp * 2));
+  const W = Math.min(TIP.W, maxW);
+
+  // Adjust wrapping to the chosen width
+  const maxChars = Math.max(24, Math.floor((W / 320) * TIP.MAX_CHARS_PER_LINE));
+
+  const lines = wrapTextSimple(raw, maxChars);
   const nLines = setTipTextLines(lines);
 
-  // Compute dynamic height from rendered lines
   const H =
-    TIP.PAD_Y +                // top padding
-    (TIP.TEXT_Y - 0) +         // baseline offset for first body line (y value)
+    TIP.PAD_Y +
+    (TIP.TEXT_Y - 0) +
     ((nLines - 1) * TIP.LINE_H) +
-    TIP.PAD_Y;                 // bottom padding
-
-  const W = TIP.W;
-  const pad = 12;
+    TIP.PAD_Y;
 
   tipRect.setAttribute("width", String(W));
   tipRect.setAttribute("height", String(H));
   tipRect.setAttribute("rx", String(TIP.RX));
   tipRect.setAttribute("ry", String(TIP.RX));
 
-  // Ensure body text starts at the right baseline and wraps via tspans
   tipText.setAttribute("x", String(TIP.PAD_X));
   tipText.setAttribute("y", String(TIP.TEXT_Y));
 
@@ -557,8 +547,8 @@ function showTooltip(series, svgPt) {
   let x = svgPt.x + 14;
   let y = svgPt.y - (H + 10);
 
-  x = Math.max(pad, Math.min(VIEW_W - W - pad, x));
-  y = Math.max(pad, Math.min(VIEW_H - H - pad, y));
+  x = Math.max(padClamp, Math.min(VIEW_W - W - padClamp, x));
+  y = Math.max(padClamp, Math.min(VIEW_H - H - padClamp, y));
 
   chartTooltip.setAttribute("transform", `translate(${x}, ${y})`);
   chartTooltip.setAttribute("opacity", "1");

@@ -1,4 +1,4 @@
-/* style.css (REPLACE. Unchanged, included as full script as requested.) */
+/* style.css (REPLACE. Responsive, iPhone-first tweaks) */
 
 :root {
   --bg: #0b0c10;
@@ -24,6 +24,7 @@ body {
     radial-gradient(900px 600px at 85% 35%, rgba(80, 200, 255, 0.15), transparent 55%),
     radial-gradient(900px 650px at 50% 95%, rgba(255, 220, 120, 0.10), transparent 60%),
     var(--bg);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .shell {
@@ -31,6 +32,8 @@ body {
   display: grid;
   place-items: center;
   padding: 32px 18px;
+  padding-left: calc(18px + env(safe-area-inset-left));
+  padding-right: calc(18px + env(safe-area-inset-right));
 }
 
 .card {
@@ -82,6 +85,7 @@ body {
     background 0.18s ease,
     border-color 0.18s ease,
     opacity 0.18s ease;
+  touch-action: manipulation;
 }
 .btn:active { transform: translateY(1px); }
 
@@ -93,8 +97,9 @@ body {
 .btn-ghost:hover { background: rgba(255, 255, 255, 0.08); }
 
 .btn-sm {
-  padding: 9px 12px;
+  padding: 10px 12px;
   border-radius: 12px;
+  min-height: 40px;
 }
 
 .footer {
@@ -128,11 +133,13 @@ body {
 .seg-btn {
   appearance: none;
   border: 0;
-  padding: 9px 14px;
+  padding: 10px 14px;
   cursor: pointer;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.76);
   background: transparent;
+  min-height: 40px;
+  touch-action: manipulation;
 }
 .seg-btn.is-active {
   background: rgba(255, 255, 255, 0.12);
@@ -166,6 +173,7 @@ body {
   display: block;
   margin: 0 auto;
   overflow: visible;
+  max-height: 72vh;
 }
 
 .venn-circle {
@@ -252,4 +260,71 @@ body {
 .tip-body {
   fill: rgba(255, 255, 255, 0.82);
   font-size: 12px;
+}
+
+/* iPhone optimization */
+
+@media (max-width: 480px) {
+  .shell {
+    padding: 18px 12px;
+    padding-left: calc(12px + env(safe-area-inset-left));
+    padding-right: calc(12px + env(safe-area-inset-right));
+  }
+
+  .card {
+    padding: 16px 14px 14px;
+    border-radius: 16px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .topbar .btn {
+    width: 100%;
+  }
+
+  .seg {
+    width: 100%;
+  }
+
+  .seg-btn {
+    flex: 1;
+    width: 50%;
+    text-align: center;
+  }
+
+  .h2 {
+    font-size: 22px;
+    margin-top: 6px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .venn-card {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .controls-row {
+    gap: 8px;
+  }
+
+  .btn-sm {
+    min-height: 44px;
+    padding: 11px 12px;
+  }
+
+  .footer {
+    font-size: 11px;
+  }
+
+  .venn {
+    max-height: 68vh;
+  }
 }

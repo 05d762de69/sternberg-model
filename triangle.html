@@ -1,12 +1,9 @@
-<!-- triangle.html (REPLACE. Changes:
-  1) Added dedicated label groups for IP / IC / PC / IPC
-  2) JS will now show ONLY the hovered region label (so IP won't also show I and P)
--->
+<!-- triangle.html (REPLACE. Responsive layout optimized for iPhone) -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>The Model. And Us.</title>
     <meta
       name="description"
@@ -162,12 +159,10 @@
 
                 <!-- Hover-only explanations (SHORT core blurbs) -->
                 <g id="explanations" class="explain" aria-hidden="true">
-                  <!-- Singles: intentionally empty (edge labels already show the name) -->
                   <g id="txtI" opacity="0"></g>
                   <g id="txtP" opacity="0"></g>
                   <g id="txtC" opacity="0"></g>
 
-                  <!-- Pairs -->
                   <g id="txtIP" opacity="0">
                     <text x="240" y="200" class="ex-title" text-anchor="middle">Romantic love</text>
                     <text x="240" y="224" class="ex-body" text-anchor="middle">Intimacy + Passion</text>
@@ -186,7 +181,6 @@
                     <text x="480" y="244" class="ex-body" text-anchor="middle">Fast. decided.</text>
                   </g>
 
-                  <!-- Triple -->
                   <g id="txtIPC" opacity="0">
                     <text x="360" y="280" class="ex-title" text-anchor="middle">Consummate love</text>
                     <text x="360" y="304" class="ex-body" text-anchor="middle">Intimacy + Passion + Commitment</text>
