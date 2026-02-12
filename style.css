@@ -1,4 +1,4 @@
-/* style.css (REPLACE. Includes date ideas page styles) */
+/* style.css (REPLACE. Mobile-first improvements for chips + cards + spacing) */
 
 :root {
   --bg: #0b0c10;
@@ -86,6 +86,7 @@ body {
     border-color 0.18s ease,
     opacity 0.18s ease;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .btn:active { transform: translateY(1px); }
 
@@ -140,6 +141,7 @@ body {
   background: transparent;
   min-height: 40px;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .seg-btn.is-active {
   background: rgba(255, 255, 255, 0.12);
@@ -262,75 +264,8 @@ body {
   font-size: 12px;
 }
 
-/* iPhone optimization */
-
-@media (max-width: 480px) {
-  .shell {
-    padding: 18px 12px;
-    padding-left: calc(12px + env(safe-area-inset-left));
-    padding-right: calc(12px + env(safe-area-inset-right));
-  }
-
-  .card {
-    padding: 16px 14px 14px;
-    border-radius: 16px;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .topbar .btn {
-    width: 100%;
-  }
-
-  .seg {
-    width: 100%;
-  }
-
-  .seg-btn {
-    flex: 1;
-    width: 50%;
-    text-align: center;
-  }
-
-  .h2 {
-    font-size: 22px;
-    margin-top: 6px;
-  }
-
-  .subtitle {
-    font-size: 14px;
-    margin-bottom: 14px;
-  }
-
-  .venn-card {
-    padding: 10px;
-    border-radius: 16px;
-  }
-
-  .controls-row {
-    gap: 8px;
-  }
-
-  .btn-sm {
-    min-height: 44px;
-    padding: 11px 12px;
-  }
-
-  .footer {
-    font-size: 11px;
-  }
-
-  .venn {
-    max-height: 68vh;
-  }
-}
-
 /* =========================
-   DATE IDEAS PAGE (NEW)
+   DATE IDEAS PAGE
 ========================= */
 
 .right-actions { display: inline-flex; gap: 10px; align-items: center; }
@@ -354,6 +289,7 @@ body {
   text-align: left;
   transition: transform 0.08s ease, background 0.18s ease, border-color 0.18s ease;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .deck-card:active { transform: translateY(1px); }
 .deck-card:hover { background: rgba(255, 255, 255, 0.06); }
@@ -375,6 +311,7 @@ body {
   height: 10px;
   border-radius: 999px;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08) inset;
+  flex: 0 0 auto;
 }
 .deck-dot-i { background: rgba(120, 210, 255, 0.80); }
 .deck-dot-p { background: rgba(255, 120, 200, 0.80); }
@@ -392,6 +329,7 @@ body {
   line-height: 1.35;
 }
 
+/* Filters: desktop wraps nicely, mobile becomes smooth horizontal scroll */
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -411,6 +349,7 @@ body {
   cursor: pointer;
   touch-action: manipulation;
   transition: background 0.18s ease, border-color 0.18s ease, transform 0.08s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .chip:active { transform: translateY(1px); }
 .chip.is-active {
@@ -453,6 +392,7 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 999px;
+  flex: 0 0 auto;
 }
 .idea-dot-i { background: rgba(120, 210, 255, 0.75); }
 .idea-dot-p { background: rgba(255, 120, 200, 0.75); }
@@ -487,6 +427,7 @@ body {
   background: rgba(255, 255, 255, 0.04);
   border-radius: 999px;
   padding: 6px 8px;
+  white-space: nowrap;
 }
 
 .pill-faint {
@@ -512,12 +453,112 @@ body {
   font-size: 12px;
 }
 
+/* =========================
+   RESPONSIVE TUNING
+========================= */
+
 @media (max-width: 860px) {
   .ideas-grid { grid-template-columns: repeat(2, 1fr); }
   .deck { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .ideas-grid { grid-template-columns: 1fr; }
-  .deck-card { padding: 13px 13px 12px; }
+  .shell {
+    padding: 18px 12px;
+    padding-left: calc(12px + env(safe-area-inset-left));
+    padding-right: calc(12px + env(safe-area-inset-right));
+  }
+
+  .card {
+    padding: 16px 14px 14px;
+    border-radius: 16px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .topbar .btn {
+    width: 100%;
+  }
+
+  .seg {
+    width: 100%;
+  }
+
+  .seg-btn {
+    flex: 1;
+    width: 50%;
+    text-align: center;
+  }
+
+  .h2 {
+    font-size: 22px;
+    margin-top: 6px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    margin-bottom: 14px;
+    max-width: 40ch;
+  }
+
+  /* Date ideas: make everything feel intentional on iPhone */
+  .deck {
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .deck-card {
+    padding: 14px 14px 12px;
+    border-radius: 16px;
+  }
+
+  /* Chips become a smooth horizontal row (no ugly wrapping) */
+  .chips {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 10px;
+    padding: 4px 2px 8px;
+    margin: 8px 0 10px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .chips::-webkit-scrollbar { height: 0; }
+  .chips { scrollbar-width: none; }
+
+  .chip {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 10px 12px;
+    min-height: 40px;
+    scroll-snap-align: start;
+  }
+
+  .ideas-head { margin: 4px 0 8px; }
+
+  .ideas-grid { grid-template-columns: 1fr; gap: 10px; }
+
+  .idea-card {
+    padding: 14px 14px 12px;
+    border-radius: 16px;
+  }
+
+  .idea-title { font-size: 15px; }
+  .idea-note { font-size: 13px; line-height: 1.5; }
+
+  .pill { padding: 7px 9px; }
+
+  .footer { font-size: 11px; }
+}
+
+/* Optional: reduce hover-only styling quirks on touch devices */
+@media (hover: none) {
+  .deck-card:hover { background: rgba(0, 0, 0, 0.12); }
 }
